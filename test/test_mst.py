@@ -82,14 +82,15 @@ def test_mst_student():
     
     TODO: Write at least one unit test for MST construction.
 
-    Given a disconnected graph, there is no mst
+    Given known graph and mst, check weight of graph since weight is distinct
     
     """
-    file_path = './data/unconnected.csv'
+    file_path = './data/tester.csv'
     g = Graph(file_path)
     g.construct_mst()
+    weight = np.sum(g.mst) // 2
 
-    assert g.mst == None
+    assert weight == 16
 
 
 
