@@ -89,6 +89,8 @@ class Graph:
                 if weight != 0:
                     heapq.heappush(edge_heap, (weight, to, n)) #store weight, curr node, end node
                     heapq.heapify(edge_heap) #order heap
+        
+        #return completed mst
         self.mst = mst
 
 

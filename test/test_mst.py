@@ -36,6 +36,18 @@ def check_mst(adj_mat: np.ndarray,
     assert approx_equal(total, expected_weight), 'Proposed MST has incorrect expected weight'
 
 
+    #check mst is symmetric
+    assert np.allclose(mst, mst.T, rtol=1e-05, atol=1e-08) == True
+
+    #check mst has right number of edges: n-1 edges for n nodes
+    total_nodes = len(adj_mat)
+    total_edges = np.count_nonzero(mst) // 2
+    assert total_edges == total_nodes - 1
+
+    #check adj_mat shape is same as mst shape
+    assert adj_mat.shape == mst.shape
+
+
 def test_mst_small():
     """
     
@@ -69,6 +81,17 @@ def test_mst_student():
     """
     
     TODO: Write at least one unit test for MST construction.
+
+    Given a disconnected graph, there is no mst
     
     """
-    pass
+    file_path = './data/unconnected.csv'
+    g = Graph(file_path)
+    g.construct_mst()
+
+    assert g.mst == None
+
+
+
+    
+
