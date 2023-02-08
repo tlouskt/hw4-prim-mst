@@ -73,7 +73,7 @@ class Graph:
         while len(visited) != num_nodes:
             #check if heap is empty
             if len(edge_heap) == 0:
-                #raise ValueError('Heap is empty. Nodes are not connected')
+                raise ValueError('Heap is empty. Nodes are not connected')
            
             #visit neighbor node(to) with lowest weight edge from ordered edge_heap
             weight, start, to = heapq.heappop(edge_heap)
