@@ -72,7 +72,7 @@ class Graph:
         #visit neighbor node to start node
         while len(visited) != num_nodes:
             #check if heap is empty
-            #if len(edge_heap) == 0:
+            if len(edge_heap) == 0:
                 #raise ValueError('Heap is empty. Nodes are not connected')
            
             #visit neighbor node(to) with lowest weight edge from ordered edge_heap
