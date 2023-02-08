@@ -42,3 +42,62 @@ class Graph:
 
         """
         self.mst = None
+
+        #Store input adjacency matrix as graph
+        graph = self.adj_mat
+        
+        #Check if graph is connected
+        if np.sum(graph) == 0:
+            raise ValueError("There are no edges. Graph is not connected")
+        
+        #Initialize mst with zeros
+        mst = np.zeros_like(graph)
+        #Get total number of nodes to iterate through
+        num_nodes = len(graph)
+        #Initialize random start node
+        start = np.random.randint(0, num_nodes)
+        #Initialize set of visited nodes with start node
+        visited = set([start])
+        #Initialize heap to store edges
+        edge_heap = []
+
+        #Fill edge_heap with edges and weights from start node
+        for n in range(num_nodes):
+            weight = graph[start,n]
+            if weight == 0: #if weight is 0, not connected and continue
+                continue
+            heapq.heappush(edge_heap, (weight, start, n)) #else, add weight, start node, neighbor node to edge_heap
+            heapq.heapify(edge_heap) #order heap with heapify
+
+        #visit neighbor node to start node
+        while len(visited) != num_nodes:
+            #check if heap is empty
+            if len(edge_heap) == 0:
+                raise ValueError('Heap is empty. Nodes are not connected')
+           
+            #visit neighbor node(to) with lowest weight edge from ordered edge_heap
+            weight, start, to = heapq.heappop(edge_heap)
+            heapq.heapify(edge_heap) #order heap
+            if to in visited: #check if neighbor node has been visited, continue to end
+                continue
+            visited.add(to) #add node to visited set
+            mst[start,to] = mst [to, start] = weight #update mst with corresponding edge nodes and weight
+
+            #do this all again by iterating over rest of the nodes
+            for n in range(num_nodes):
+                weight = graph[to,n] #new start node/current node from last neighbor node. find weight
+                if weight != 0:
+                    heapq.heappush(edge_heap, (weight, to, n)) #store weight, curr node, end node
+                    heapq.heapify(edge_heap) #order heap
+        self.mst = mst
+
+
+
+
+
+            
+        
+
+        
+
+
